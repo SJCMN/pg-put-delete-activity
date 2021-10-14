@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
 // Request must include a parameter indicating what book to update - the id
 // Request body must include the content to update - the status
 
-router.put('/books/:id', (req, res) => {
+router.put('/:id', (req, res) => {
 let id = req.params.id;
 let isRead = req.body.isRead;
 
@@ -81,7 +81,7 @@ pool.query(queryText, values).then(result => {
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
 
-router.delete('/books/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   let id = req.params.id;
   console.log('Book id: ', req.params, id);
 
