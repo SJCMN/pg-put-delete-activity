@@ -34,10 +34,10 @@ function handleIsRead(){
     method: 'PUT',
     url: `/books/${idToRead}`
   }).then(function(response){
-    console.log('Response from delete ', response);
+    console.log('Response from is Read ', response);
     refreshBooks();    
   }).catch(function(error) {
-    console.log('Delete failed', error);
+    console.log('Is read failed', error);
   })
    
 }
