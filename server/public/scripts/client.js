@@ -7,6 +7,7 @@ $(document).ready(function(){
 function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
   $('#bookShelf').on('click', '.deleteBtn', handleDelete)
+  $('#bookShelf').on('click', '.isReadBtn', handleIsRead)
   // TODO - Add code for edit & delete buttons
 }
 
@@ -23,6 +24,22 @@ function handleDelete() {
   }).catch(function(error) {
     console.log('Delete failed', error);
   })
+}
+
+function handleIsRead(){
+  console.log('In isRead button');
+  let idToRead =  $(this).closest('tr').data('id');
+  console.log(idToRead);
+  $.ajax({
+    method: 'PUT',
+    url: `/books/${idToRead}`
+  }).then(function(response){
+    console.log('Response from delete ', response);
+    refreshBooks();    
+  }).catch(function(error) {
+    console.log('Delete failed', error);
+  })
+   
 }
 
 
@@ -55,7 +72,7 @@ function refreshBooks() {
     type: 'GET',
     url: '/books'
   }).then(function(response) {
-    console.log(response);
+    console.log('GET response:', response);
     renderBooks(response);
   }).catch(function(error){
     console.log('error in GET', error);
@@ -75,6 +92,7 @@ function renderBooks(books) {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td><button class="deleteBtn">Delete</button><td>
+        <td><button class="isReadBtn">Read It</button><td>
       </tr>
     `);
   }
