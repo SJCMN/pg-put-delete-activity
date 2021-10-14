@@ -13,7 +13,7 @@ function addClickHandlers() {
 function handleDelete() {
   console.log('In delete button');
   let idToDelete = $(this).closest('tr').data('id');
-
+  console.log(idToDelete);
   $.ajax({
     method: 'DELETE',
     url: `/books/${idToDelete}`
@@ -71,7 +71,7 @@ function renderBooks(books) {
     let book = books[i];
     // For each book, append a new row to our table
     $('#bookShelf').append(`
-      <tr>
+      <tr data-id=${book.id}>
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td><button class="deleteBtn">Delete</button><td>

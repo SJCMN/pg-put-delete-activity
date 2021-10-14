@@ -10,15 +10,15 @@ router.get('/', (req, res) => {
     // Sends back the results in an object
     res.send(result.rows);
   })
-  .catch(error => {
-    console.log('error getting books', error);
-    res.sendStatus(500);
-  });
+    .catch(error => {
+      console.log('error getting books', error);
+      res.sendStatus(500);
+    });
 });
 
 // Adds a new book to the list of awesome reads
 // Request body must be a book object with a title and author.
-router.post('/',  (req, res) => {
+router.post('/', (req, res) => {
   let newBook = req.body;
   console.log(`Adding book`, newBook);
 
@@ -44,5 +44,23 @@ router.post('/',  (req, res) => {
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
 
+router.delete('/books/:id', (req, res) => {
+  let id = req.params.id;
+  console.log('Book id: ', id);
+
+  let queryText = `
+  DELETE FROM "books" 
+  WHERE "id" = $1;
+  `
+  let values = [id];
+
+  pool.query(queryText, values).then(result => {
+    res.sendStatus(204);
+  }).catch(err => {
+    console.log('DELETE route failed ', err);
+    res.sendStatus(500)
+  })
+  
+})
 
 module.exports = router;
