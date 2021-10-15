@@ -47,16 +47,16 @@ console.log(id);
 console.log(isRead);
 
 let queryText = ''
-if (isRead === 'FALSE'){
+if (isRead === 'FALSE' || 'NULL'){
   queryText = `
-  UPDATE "songs"
-  SET "isRead" = "true"
+  UPDATE "books"
+  SET "isRead" = 'TRUE'
   WHERE "id" = $1
   `
 } else if (isRead === 'TRUE'){
   queryText = `
-  UPDATE "songs"
-  SET "isRead" = "false"
+  UPDATE "books"
+  SET "isRead" = 'FALSE'
   WHERE "id" = $1
   `
 } else {

@@ -29,10 +29,13 @@ function handleDelete() {
 function handleIsRead(){
   console.log('In isRead button');
   let idToRead =  $(this).closest('tr').data('id');
+  let isRead = $(this).closest('tr').data('isRead');
   console.log(idToRead);
+  console.log(isRead);
   $.ajax({
     method: 'PUT',
-    url: `/books/${idToRead}`
+    url: `/books/${idToRead}`,
+    data:  {isRead}
   }).then(function(response){
     console.log('Response from is Read ', response);
     refreshBooks();    
@@ -42,15 +45,18 @@ function handleIsRead(){
    
 }
 
-
+// make a little object package function
 function handleSubmit() {
   console.log('Submit button clicked.');
   let book = {};
   book.author = $('#author').val();
   book.title = $('#title').val();
   addBook(book);
+  $('#author').val('');
+  $('#title').val('');
 }
 
+// send the book package to the server.then the database.
 // adds a book to the database
 function addBook(bookToAdd) {
   $.ajax({
@@ -92,7 +98,7 @@ function renderBooks(books) {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td><button class="deleteBtn">Delete</button><td>
-        <td><button class="isReadBtn">Read It</button><td>
+        <td><button class="isReadBtn" data-isRead=${book.isRead}>Read It</button><td>
       </tr>
     `);
   }
