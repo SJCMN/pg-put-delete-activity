@@ -29,7 +29,7 @@ function handleDelete() {
 function handleIsRead(){
   console.log('In isRead button');
   let idToRead =  $(this).closest('tr').data('id');
-  let isRead = $(this).closest('tr').data('isRead');
+  let isRead = $(this);
   console.log(idToRead);
   console.log(isRead);
   $.ajax({
@@ -92,6 +92,8 @@ function renderBooks(books) {
 
   for(let i = 0; i < books.length; i += 1) {
     let book = books[i];
+    // console.log(book);
+    
     // For each book, append a new row to our table
     $('#bookShelf').append(`
       <tr data-id=${book.id}>
